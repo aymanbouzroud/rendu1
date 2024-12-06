@@ -1,0 +1,57 @@
+
+CREATE DATABASE gestevenements;
+
+
+\c gestevenements;
+
+
+CREATE TABLE utilisateurs (
+    id_user SERIAL PRIMARY KEY,
+    nom VARCHAR(50) NOT NULL,   
+    prenom VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    type VARCHAR(20) NOT NULL CHECK (type IN ('ETUDIANT', 'PROFESSEUR')) 
+);
+
+CREATE TABLE evenements (
+    id_event SERIAL PRIMARY KEY, 
+    nom_event VARCHAR(100) NOT NULL, 
+    date_event DATE NOT NULL, 
+    description TEXT, 
+    id_user INT REFERENCES utilisateurs(id_user) 
+);
+
+CREATE TABLE salles (
+    id_salle SERIAL PRIMARY KEY
+    nom_salle VARCHAR(50) NOT NULL, 
+capacite int
+);
+CREATE TABLE terrains (
+    id_terrain SERIAL PRIMARY KEY, 
+    nom_terrain VARCHAR(50) NOT NULL, 
+    type VARCHAR(50) NOT NULL 
+);
+CREATE TABLE reservations (
+    id_reservation SERIAL PRIMARY KEY, 
+    id_user INT REFERENCES utilisateurs(id_user) ON DELETE CASCADE, 
+    id_event INT REFERENCES evenements(id_event) ON DELETE CASCADE, 
+    id_salle INT REFERENCES salles(id_salle) ON DELETE SET NULL,
+    id_terrain INT REFERENCES terrains(id_terrain) ON DELETE SET NULL, 
+    date_reservation DATE NOT NULL 
+);
+
+INSERT INTO utilisateurs (nom, prenom, email, type) VALUES
+('Ayman', 'Ben', 'ayman.ben@gmail.com', 'ETUDIANT'),
+('bou', 'ayman', 'bou.ayman@gmail.com', 'PROFESSEUR');
+
+INSERT INTO evenements (nom_event, date_event, description, id_user) VALUES
+(' Java', '2024-12-10', ' Java', 2),
+(' Web', '2024-12-12', ' HTML et CSS', 1);
+
+INSERT INTO salles (nom_salle, capacite) VALUES
+('Salle A', 50),
+('Salle B', 100);
+
+INSERT INTO terrains (nom_terrain, type) VALUES
+(' Foot', 'A'),
+('vollet', 'B');
