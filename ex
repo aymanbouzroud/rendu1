@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public static void main(String[] args) {
      
-        private static final String URL = "jdbc:mysql://localhost:3306/votre_base_de_donnees";
-        private static final String USER = "votre_utilisateur";
-        private static final String PASSWORD = "votre_mot_de_passe";
+        private static final String URL = "jdbc:mysql://localhost:3306/db";
+        private static final String USER = "user";
+        private static final String PASSWORD = "123";
     
     Connection connection = DriverManager.getConnection(url, user, password);
     System.out.println("Connexion ");
